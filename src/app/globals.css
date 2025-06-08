@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+/* NODA Co-Pilot Theme Configuration using Tailwind CSS v4 CSS-first approach */
+@theme {
+  /* NODA Brand Colors using modern OKLCH color space */
+  --color-noda-primary: oklch(0.45 0.12 240);
+  --color-noda-secondary: oklch(0.6 0.15 180);
+  --color-noda-accent: oklch(0.7 0.2 120);
+  
+  /* Energy System Status Colors */
+  --color-energy-optimal: oklch(0.7 0.15 140);
+  --color-energy-good: oklch(0.8 0.12 80);
+  --color-energy-warning: oklch(0.75 0.15 60);
+  --color-energy-critical: oklch(0.65 0.2 25);
+  --color-energy-offline: oklch(0.5 0.05 260);
+  
+  /* Temperature Visualization Colors */
+  --color-temp-cold: oklch(0.6 0.2 240);
+  --color-temp-cool: oklch(0.7 0.15 200);
+  --color-temp-comfortable: oklch(0.8 0.12 140);
+  --color-temp-warm: oklch(0.75 0.18 60);
+  --color-temp-hot: oklch(0.65 0.22 25);
+  
+  /* Typography - Technical fonts for energy management */
+  --font-technical: "Inter", "system-ui", "sans-serif";
+  --font-display: "Satoshi", "Inter", "system-ui", "sans-serif";
   --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
+  
+  /* Dashboard Spacing Scale */
+  --spacing: 0.25rem;
+  --spacing-dashboard: 1.5rem;
+  --spacing-card: 1rem;
+  
+  /* Custom Breakpoints for Energy Dashboards */
+  --breakpoint-dashboard: 1920px;
+  --breakpoint-control-panel: 1400px;
+  
+  /* Animation Curves for Smooth Energy Transitions */
+  --ease-energy: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-dashboard: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Semantic Colors */
+  --color-success: oklch(0.7 0.15 140);
+  --color-info: oklch(0.6 0.2 240);
+  --color-warning: oklch(0.8 0.15 80);
+  --color-error: oklch(0.65 0.2 25);
+  
+  /* Light Mode Theme */
+  --color-background: oklch(0.99 0 0);
+  --color-foreground: oklch(0.15 0 0);
+  --color-surface: oklch(0.98 0 0);
+  --color-surface-secondary: oklch(0.96 0 0);
+  --color-border: oklch(0.9 0 0);
+  --color-muted: oklch(0.65 0 0);
+  
+  /* Dark Mode Theme */
+  --color-background-dark: oklch(0.08 0 0);
+  --color-foreground-dark: oklch(0.95 0 0);
+  --color-surface-dark: oklch(0.12 0 0);
+  --color-surface-secondary-dark: oklch(0.16 0 0);
+  --color-border-dark: oklch(0.2 0 0);
+  --color-muted-dark: oklch(0.55 0 0);
 }
 
+/* CSS Variables for Runtime Access */
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --surface: var(--color-surface);
+  --surface-secondary: var(--color-surface-secondary);
+  --border: var(--color-border);
+  --muted: var(--color-muted);
+}
+
+/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--color-background-dark);
+    --foreground: var(--color-foreground-dark);
+    --surface: var(--color-surface-dark);
+    --surface-secondary: var(--color-surface-secondary-dark);
+    --border: var(--color-border-dark);
+    --muted: var(--color-muted-dark);
   }
 }
 
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-technical);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  line-height: 1.5;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: var(--ease-dashboard);
+  transition-duration: 200ms;
+}
+
+/* Remove transitions on page load to prevent flash */
+.preload * {
+  transition: none !important;
 }
